@@ -1,7 +1,13 @@
-
+import axios from "axios";
+import { useState } from "react";
+import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
-    const handleAddCoffee =  (e) =>{
+
+    const [coffees, setCoffees] = useState([]);
+    const [isError, setIsError] = useState('');
+
+    const handleAddCoffee = async (e) => {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -12,13 +18,46 @@ const AddCoffee = () => {
         const details = form.details.value;
         const photo = form.photo.value;
 
-        const newCoffee = {name, quantity, supplier, taste, category, details, photo};
-        console.log(newCoffee)
-    }
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo };
+        console.log(newCoffee);
+
+        try {
+            const res = await axios.post('http://localhost:5000/coffee', newCoffee, {
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+            });
+
+            if (res.data) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Coffee added successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                });
+                setCoffees(prevCoffees => [...prevCoffees, res.data]);
+                form.reset();
+            }
+        } catch (error) {
+            setIsError(error.message);
+            Swal.fire({
+                title: 'Error!',
+                text: `Failed to add coffee: ${error.message}`,
+                icon: 'error',
+                confirmButtonText: 'Try Again'
+            });
+        }
+    };
+
     return (
         <div className="bg-[#F4F3F0] p-24">
             <h2 className="text-4xl font-extrabold text-center">Add New Coffee</h2>
             <p className="text-center w-[932px] text-2xl my-5 mx-auto">"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here."</p>
+
+            {
+                isError !== "" && <h1 className="text-center text-red-600 text-6xl mx-auto my-8">{isError}</h1>
+            }
+
             <form onSubmit={handleAddCoffee}>
                 {/* from coffee name & quantity */}
                 <div className="md:flex mb-6">
