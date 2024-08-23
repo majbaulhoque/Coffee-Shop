@@ -1,9 +1,12 @@
+import HomeCard from "../../Component/Home Resource/HomeCard";
+
 
 
 const Home = () => {
+
     return (
         <div>
-            This is Home Page
+            <HomeCard />
         </div>
     );
 };
