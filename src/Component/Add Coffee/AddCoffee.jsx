@@ -19,7 +19,7 @@ const AddCoffee = () => {
         const photo = form.photo.value;
 
         const newCoffee = { name, quantity, supplier, taste, category, details, photo };
-        console.log(newCoffee);
+        // console.log(newCoffee);
 
         try {
             const res = await axios.post('http://localhost:5000/coffee', newCoffee, {
@@ -27,7 +27,8 @@ const AddCoffee = () => {
                     "Content-Type": 'application/json'
                 },
             });
-
+            console.log(res.data)
+            
             if (res.data) {
                 Swal.fire({
                     title: 'Success!',
