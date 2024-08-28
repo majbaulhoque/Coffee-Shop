@@ -52,7 +52,7 @@ const AddCoffee = () => {
 
     return (
         <div className="bg-[#F4F3F0] p-24">
-            <h2 className="text-4xl font-extrabold text-center">Add New Coffee</h2>
+            <h2 className="text-4xl font-extrabold text-center">Add New Coffee {coffees.length}</h2>
             <p className="text-center w-[932px] text-2xl my-5 mx-auto">"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here."</p>
 
             {

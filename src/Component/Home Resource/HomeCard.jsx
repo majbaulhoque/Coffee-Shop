@@ -5,6 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { BASE_URL } from '../../config';
+import { Link } from 'react-router-dom';
 
 const HomeCard = () => {
     const [coffeeList, setCoffeeList] = useState([]);
@@ -34,7 +35,7 @@ const HomeCard = () => {
             confirmButtonText: "Yes, delete it!"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                try { 
+                try {
                     const res = await axios.delete(`${BASE_URL}/coffee/${_id}`);
                     if (res.data.deletedCount > 0) {
                         Swal.fire({
@@ -76,7 +77,9 @@ const HomeCard = () => {
                                 </div>
                                 <div>
                                     <button className="btn btn-primary text-xl block mb-2"><IoEyeSharp /></button>
-                                    <button className="btn bg-black text-white block text-xl mb-2"><FaRegEdit /></button>
+                                    <Link to={`/updateCoffee/${coffee._id}`}>
+                                        <button className="btn bg-black text-white block text-xl mb-2"><FaRegEdit /></button>
+                                    </Link>
                                     <button className="btn bg-red-600 text-xl text-black border-l mb-2" onClick={() => handleDelete(coffee._id)}><MdDeleteOutline /></button>
                                 </div>
                             </div>
