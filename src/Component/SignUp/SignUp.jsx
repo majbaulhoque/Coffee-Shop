@@ -1,27 +1,35 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
 
 
 const SignUp = () => {
 
     const {createUser} = useContext(AuthContext);
 
-    const handleSignUp = e =>{
+    const handleSignUp = async (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
-        createUser(email, password)
-        .then(res => {
-            console.log(res.user)
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
-
+        
+        try {
+            const result = await createUser(email, password);
+            console.log(result.user);
+            const createdAt = result?.user?.metaData?.creationTime;
+            const user = {email, createdAt: createdAt};
+            const res = await axios.post('http://localhost:5000/user', user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }   
+            })
+            console.log(res.data)
+            // form.reset();
+        } catch (error) {
+            console.log(error.message);
+        }
     }
-
+    
     return (
         <div>
             <div className="hero bg-base-200 min-h-screen">
