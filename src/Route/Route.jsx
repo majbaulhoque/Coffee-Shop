@@ -6,6 +6,7 @@ import AddCoffee from '../Component/Add Coffee/AddCoffee';
 import UpdateCoffee from '../Component/UpdateCoffee/UpdateCoffee';
 import SignUp from '../Component/SignUp/SignUp';
 import SignIn from '../Component/Sign In/SignIn';
+import Users from '../Component/Users/Users';
 
 const Route = createBrowserRouter ([
     {
@@ -31,6 +32,10 @@ const Route = createBrowserRouter ([
             {
                 path: '/signIn',
                 element: <SignIn />,
+            },
+            {
+                path: '/users',
+                element: <Users />,
             },
         ],
     }

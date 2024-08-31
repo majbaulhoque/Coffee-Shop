@@ -16,7 +16,7 @@ const SignUp = () => {
         try {
             const result = await createUser(email, password);
             console.log(result.user);
-            const createdAt = result?.user?.metaData?.creationTime;
+            const createdAt = result?.user?.metadata?.creationTime;
             const user = {email, createdAt: createdAt};
             const res = await axios.post('http://localhost:5000/user', user, {
                 headers: {
@@ -24,7 +24,7 @@ const SignUp = () => {
                 }   
             })
             console.log(res.data)
-            // form.reset();
+            form.reset();
         } catch (error) {
             console.log(error.message);
         }
