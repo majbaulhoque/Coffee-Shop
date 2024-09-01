@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
+import { BASE_URL } from "../../config";
 
 
 const SignIn = () => {
@@ -14,7 +16,18 @@ const SignIn = () => {
 
         try {
             const result = await signInUser(email, password)
-            console.log(result.data)
+            console.log(result.data);
+            const user = {
+                email,
+                lastLoggedAt: result.user?.metadata?.lastSignInTime
+            }
+            // update last logged at in the user
+            const res = await axios.patch(`${BASE_URL}/user`, user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            console.log(res.data)
         } catch (error) {
             console.log(error.message)
         }
